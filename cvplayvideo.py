@@ -7,8 +7,10 @@ ix,iy=1,10
 TX,TY =1,10
 trackbarname = 'bar'
 
-VIDEO_DIR = r"D:\烟雾视频汇总\复杂场景中的烟雾\00403.avi"
-img_path = 'D:/new_image/'
+VIDEO_DIR = r"D:\smoke video\video1\00403.avi"            #### 这里是要制作的视频的地址
+img_path = 'D:/new_image/'                                #### 这里是储存图片的位置
+xml_save_path = "D:\make_csv"                             #### 这里是xml文件保存地址
+
 
 slider_postion = 0
 videocapture = cv2.VideoCapture(VIDEO_DIR)
@@ -85,7 +87,7 @@ if __name__ == '__main__':
         success, frame = videocapture.read() #获取下一帧
         cv2.setMouseCallback('pic0',draw_circle)
         img = cv2.rectangle(frame,(ix,iy),(TX,TY),(0,255,0),0)
-        xmltest.write_xml(str(i),image_save_path,str(size[0]),str(size[1]),str(3),"smoke",str(ix),str(iy),str(TX),str(TY),"D:\make_csv")
+        xmltest.write_xml(str(i),image_save_path,str(size[0]),str(size[1]),str(3),"smoke",str(ix),str(iy),str(TX),str(TY),xml_save_path)
 
         img = frame
 

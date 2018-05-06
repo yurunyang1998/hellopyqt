@@ -8,8 +8,8 @@ ix,iy=1,10
 TX,TY =1,10
 trackbarname = 'bar'
 
-VIDEO_DIR = r"D:\helloqt\video\1.avi"
-
+VIDEO_DIR = r"/home/yurunyang/Desktop/smoke dataset 2017/smoke/smoke (136).avi"
+img_qian_zhui = VIDEO_DIR.split('/')[-1].split('.')[0]
 slider_postion = 0
 videocapture = cv2.VideoCapture(VIDEO_DIR)
 def ontrackbarslide(pos):
@@ -87,8 +87,10 @@ if __name__ == '__main__':
     cv2.createTrackbar("track",'pic0',0,int(tutol_frame_count),ontrackbarslide)
     i=0
     while success :
-        i=0
-        image_save_path = r'D:\helloqt\video\no_smoke\\'+str(i)+'.jpg'
+        if cv2.waitKey(100) & 0xff == 27:
+            break
+        image_save_path = r'/home/yurunyang/Desktop/船新的训练集/'+img_qian_zhui+'_'+str(i)+'.jpg'
+        image_save_path_father = r"/home/yurunyang/Desktop/船新的训练集/"
         i=i+1
 
         cv2.namedWindow("pic0",flags=0)
@@ -114,10 +116,11 @@ if __name__ == '__main__':
         #img = cv2.resize(img,(224,224))
         #img = cv2.resize(img,(224,224))
         #print(ix,iy,TX,TY)
-        if(cv2.imwrite(image_save_path,img)):
+        if(cv2.imwrite(image_save_path_father+"/junk.jpg",img)):
         #cv2.imwrite(image_save_path,img)
             #img = cv2.resize(img,(224,224))
             cv2.imshow("roi",frame[iy+10:TY-10,ix+10:TX-10])
             img = cv2.resize(frame[iy+10:TY-10,ix+10:TX-10],(224,224))
-            cv2.imwrite(image_save_path,img)
+            if(img.size>0):
+                cv2.imwrite(image_save_path,img)
         cv2.setTrackbarPos("track","pic0",int(videocapture.get(cv2.CAP_PROP_POS_FRAMES)))
